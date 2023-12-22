@@ -11,7 +11,7 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
                 .allowedOrigins(
-//                        "http://localhost:5173",
+                        "http://localhost:5173",
                         "https://stockcontrolfrontend-ks6w0v5l4-lohrenzo.vercel.app/"
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
