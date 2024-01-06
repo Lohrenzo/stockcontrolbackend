@@ -1,9 +1,11 @@
 package com.oop.stockcontrol.entity;
 
-import com.oop.stockcontrol.dto.UserDto;
 import com.oop.stockcontrol.enums.UserRole;
+import com.oop.stockcontrol.newDto.UserDto;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
@@ -12,7 +14,7 @@ import lombok.*;
 @Table(name = "users")
 public class User {
     @Id
-    @Column(name = "user_id", nullable = false, unique = true)
+    @Column(name = "userId", nullable = false, unique = true)
     @SequenceGenerator(
             name = "user_sequence",
             sequenceName = "user_sequence",
@@ -42,9 +44,22 @@ public class User {
 
     private UserRole role;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_addressId")
-    private Address address;
+    @Column(nullable = false)
+    private String addressLine1;
+
+    private String addressLine2;
+
+    @Column(nullable = false)
+    private String city;
+
+    @Column(nullable = false)
+    private String county;
+
+    @Column(nullable = false)
+    private String postCode;
+
+    @Column(nullable = false)
+    private String country;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -58,13 +73,19 @@ public class User {
         userDto.setLastName(lastName);
         userDto.setBusinessName(businessName);
         userDto.setPhoneNumber(phoneNumber);
-        userDto.setAddress(address);
+        userDto.setAddressLine1(addressLine1);
+        userDto.setAddressLine2(addressLine2);
+        userDto.setCity(city);
+        userDto.setCounty(county);
+        userDto.setPostCode(postCode);
+        userDto.setCountry(country);
         userDto.setPassword(password);
         userDto.setRole(role);
 
         return userDto;
     }
 
+    // Getters and Setters
     public Long getUserId() {
         return userId;
     }
@@ -129,12 +150,52 @@ public class User {
         this.role = role;
     }
 
-    public Address getAddress() {
-        return address;
+    public String getAddressLine1() {
+        return addressLine1;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
+    }
+
+    public String getAddressLine2() {
+        return addressLine2;
+    }
+
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = addressLine2;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getPassword() {

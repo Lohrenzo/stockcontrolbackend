@@ -27,7 +27,7 @@ public class CategoryController {
 
     // Get Category By ID REST API
     @GetMapping(path = "details/{categoryId}")
-    public List<Category> getCategoryById(@PathVariable("categoryId") Long categoryId) {
+    public Category getCategoryById(@PathVariable("categoryId") Long categoryId) {
         return categoryService.getCategoryById(categoryId);
     }
 

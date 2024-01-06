@@ -61,6 +61,13 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!--Used To Capitalize Inputs-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.12.0</version>
+		</dependency>
+
 		<!-- New Version -->
 <!--		<dependency>-->
 <!--			<groupId>jakarta.xml.bind</groupId>-->

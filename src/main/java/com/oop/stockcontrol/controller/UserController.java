@@ -1,8 +1,8 @@
 package com.oop.stockcontrol.controller;
 
-import com.oop.stockcontrol.dto.*;
-import com.oop.stockcontrol.entity.Category;
+import com.oop.stockcontrol.newDto.*;
 import com.oop.stockcontrol.entity.User;
+//import com.oop.stockcontrol.entity.User;
 import com.oop.stockcontrol.repository.UserRepository;
 import com.oop.stockcontrol.service.auth.UserServiceImpl;
 import com.oop.stockcontrol.service.jwt.UserServiceJwtImpl;
@@ -81,6 +81,21 @@ public class UserController {
 //        createdUser.setPassword(passwordEncoder.encode(createdUser.getPassword()));
 
         return new ResponseEntity<>(createdUser, HttpStatus.OK);
+    }
+
+    // Update A User By ID REST API
+    @PutMapping(path = "update/{userId}")
+    public ResponseEntity<?> updateUser(
+            @PathVariable("userId") Long userId,
+            @RequestBody UpdateUserDto updateUserDto
+//            @RequestBody UpdateUserDto updateUserDto
+    ) {
+        try {
+            UserDto updatedUser = userServiceImpl.updateUser(userId, updateUserDto);
+            return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to update user: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // Sign Up Admin REST API

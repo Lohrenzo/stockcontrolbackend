@@ -32,13 +32,14 @@ public class ProductController {
 
     // Get Products By Searching For Keyword In Description REST API
     @GetMapping(path = "description/{descriptionKeyword}")
-    public List<Product> getProductsByDecsriptionSearch(@PathVariable("descriptionKeyword") String descriptionKeyword) {
-        return productService.getProductsByDecsriptionSearch(descriptionKeyword);
+    public List<Product> getProductsByDescriptionSearch(@PathVariable("descriptionKeyword") String descriptionKeyword) {
+        return productService.getProductsByDescriptionSearch(descriptionKeyword);
     }
 
     // Get Product By ID REST API
     @GetMapping(path = "details/{productId}")
-    public List<Product> getProductById(@PathVariable("productId") Long productId) {
+//    public List<Product> getProductById(@PathVariable("productId") Long productId) {
+    public Product getProductById(@PathVariable("productId") Long productId) {
         return productService.getProductById(productId);
     }
 
@@ -55,7 +56,8 @@ public class ProductController {
     }
 
     // Update A Product By ID REST API
-    @PutMapping(path = "update/{productId}")
+//    @PutMapping(path = "update/{productId}")
+    @RequestMapping(method = RequestMethod.PUT, value = "update/{productId}")
     public void updateProduct(@PathVariable("productId") Long productId, @RequestBody Product updatedProduct) {
         productService.updateProduct(productId, updatedProduct);
     }

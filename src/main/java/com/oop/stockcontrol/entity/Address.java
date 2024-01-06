@@ -1,52 +1,52 @@
-package com.oop.stockcontrol.entity;
+//package com.oop.stockcontrol.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+//import jakarta.persistence.*;
+//import lombok.AllArgsConstructor;
+//import lombok.Data;
+//import lombok.NoArgsConstructor;
 
-@Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "address")
+//@Entity
+//@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Table(name = "address")
 public class Address {
-    @Id
-    @SequenceGenerator(
-            name = "address_sequence",
-            sequenceName = "address_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "address_sequence"
-    )
-    private Long addressId;
+//    @Id
+//    @SequenceGenerator(
+//            name = "address_sequence",
+//            sequenceName = "address_sequence",
+//            allocationSize = 1
+//    )
+//    @GeneratedValue(
+//            strategy = GenerationType.SEQUENCE,
+//            generator = "address_sequence"
+//    )
+//    private Long addressId;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String addressLine1;
 
     private String addressLine2;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String city;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String county;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String postCode;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String country;
 
-    public Long getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
-    }
+//    public Long getAddressId() {
+//        return addressId;
+//    }
+//
+//    public void setAddressId(Long addressId) {
+//        this.addressId = addressId;
+//    }
 
     public String getAddressLine1() {
         return addressLine1;

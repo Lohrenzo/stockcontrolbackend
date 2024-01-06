@@ -30,13 +30,16 @@ public class ProductService {
     }
 
     // Get Product By Product ID
-    public List<Product> getProductById(Long productId) {
-        Optional<Product> productOptional = productRepository.findProductById(productId);
+    public Product getProductById(Long productId) {
+        Optional<Product> productOptional = productRepository.findById(productId);
 
-        if (productOptional.isPresent()) {
-            productRepository.findById(productId);
-        }
-        throw new IllegalStateException("Product with Id: " + productId + " does not exist.");
+        // If the product is present, return it
+        return productOptional.orElseThrow(() -> new IllegalStateException("Product with Id: " + productId + " does not exist."));
+
+//        if (productOptional.isPresent()) {
+//            productRepository.findById(productId);
+//        }
+//        throw new IllegalStateException("Product with Id: " + productId + " does not exist.");
     }
 
     public List<Product> getProductBySKU(String SKU) {
@@ -60,8 +63,8 @@ public class ProductService {
     }
 
     // Get Products By Searching For Matching Keywords In Description
-    public List<Product> getProductsByDecsriptionSearch(String descriptionKeyword) {
-        List<Product> products = productRepository.findProductsByDecsriptionSearch(descriptionKeyword);
+    public List<Product> getProductsByDescriptionSearch(String descriptionKeyword) {
+        List<Product> products = productRepository.findProductsByDescriptionSearch(descriptionKeyword);
 
         if (products.isEmpty()) {
             throw new IllegalStateException("Products with keyword: '" + descriptionKeyword + "' in its description does not exist.");
@@ -79,12 +82,36 @@ public class ProductService {
         }
 
         // Ensure the category is managed
-        Category category = categoryRepository.findById(product.getCategory().getCategoryId())
-                .orElseThrow(() -> new IllegalStateException("Category with ID: " + product.getCategory().getCategoryId() + " not found."));
+        Optional<Category> categoryOptional = categoryRepository.findById(product.getCategory().getCategoryId());
+        if (categoryOptional.isPresent()) {
+            Category category = categoryOptional.get();
+            try {
+                product.setCategory(category);
+                productRepository.save(product);
+            } catch (IllegalStateException e) {
+                System.out.println("Failed to add the product: " + e.getMessage());
+            }
+        } else {
+            throw new IllegalStateException("Category with ID: " + product.getCategory().getCategoryId() + " not found.");
+        }
 
-        product.setCategory(category);
+    }
+
+    public void addProductViaMenu(Product product) {
+//        Optional<Product> productOptional = productRepository.findProductByName(product.getName());
+//
+//        if (productOptional.isPresent()) {
+//            throw new IllegalStateException("Product Already Exists.");
+//        }
+//
+//        // Ensure the category is managed
+//        Category category = categoryRepository.findById(product.getCategory().getCategoryId())
+//                .orElseThrow(() -> new IllegalStateException("Category with ID: " + product.getCategory().getCategoryId() + " not found."));
+//
+//        product.setCategory(category);
         productRepository.save(product);
     }
+
 
     // Update A Product By ID
     @Transactional
@@ -95,22 +122,74 @@ public class ProductService {
         // Update only non-null fields from updatedProduct
         if (updatedProduct.getSKU() != null) {
             product.setSKU(updatedProduct.getSKU());
+        } else {
+            product.setSKU(product.getSKU());
         }
 
         if (updatedProduct.getName() != null) {
             product.setName(updatedProduct.getName());
+        } else {
+            product.setName(product.getName());
         }
 
         if (updatedProduct.getDescription() != null) {
             product.setDescription(updatedProduct.getDescription());
+        } else {
+            product.setDescription(product.getDescription());
         }
 
-        if (updatedProduct.getPrice() != null) {
+        if (updatedProduct.getPrice() != 0) {
             product.setPrice(updatedProduct.getPrice());
+        } else {
+            product.setPrice(product.getPrice());
+        }
+
+        if (updatedProduct.getAvailableQuantity() != null) {
+            product.setAvailableQuantity(updatedProduct.getAvailableQuantity());
+        } else {
+            product.setAvailableQuantity(product.getAvailableQuantity());
         }
 
         if (updatedProduct.getCategory() != null) {
             product.setCategory(updatedProduct.getCategory());
+        } else {
+            product.setCategory(product.getCategory());
+        }
+    }
+
+    public void updateProductViaMenu(Long productId, Product updatedProduct) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalStateException("Product with Id: " + productId + " does not exist."));
+
+        // Update only non-null fields from updatedProduct
+        if (updatedProduct.getSKU() != null) {
+            product.setSKU(updatedProduct.getSKU());
+        } else {
+            product.setSKU(product.getSKU());
+        }
+
+        if (updatedProduct.getName() != null) {
+            product.setName(updatedProduct.getName());
+        } else {
+            product.setName(product.getName());
+        }
+
+        if (updatedProduct.getDescription() != null) {
+            product.setDescription(updatedProduct.getDescription());
+        } else {
+            product.setDescription(product.getDescription());
+        }
+
+        if (updatedProduct.getPrice() != 0) {
+            product.setPrice(updatedProduct.getPrice());
+        } else {
+            product.setPrice(0);
+        }
+
+        if (updatedProduct.getCategory() != null) {
+            product.setCategory(updatedProduct.getCategory());
+        } else {
+            product.setCategory(product.getCategory());
         }
     }
 

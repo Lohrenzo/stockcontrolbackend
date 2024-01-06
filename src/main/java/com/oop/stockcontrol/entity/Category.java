@@ -26,6 +26,9 @@ public class Category {
     @Column(nullable = false, unique = true)
     private String categoryName;
 
+    public Category(long l, String fruits) {
+    }
+
     public Long getCategoryId() {
         return categoryId;
     }

@@ -21,17 +21,36 @@ public class CategoryService {
 
     // Get All Categories
     public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+        List<Category> categoryList = categoryRepository.findAll();
+        System.out.println("Getting Data from DB: " + categoryList);
+        return categoryList;
     }
 
     // Get Category By Category ID
-    public List<Category> getCategoryById(Long categoryId) {
-        Optional<Category> categoryOptional = categoryRepository.findCategoryById(categoryId);
+//    public Category getCategoryById(Long categoryId) {
+//        Optional<Category> categoryOptional = categoryRepository.getCategoryById(categoryId);
+//
+//        if (categoryOptional.isPresent()) {
+//            categoryRepository.findById(categoryId);
+//        }
+//        throw new IllegalStateException("Category with Id: " + categoryId + " does not exist.");
+//    }
+    public Category getCategoryById(Long categoryId) {
+        Optional<Category> categoryOptional = categoryRepository.getCategoryById(categoryId);
+
+        return categoryOptional.orElseThrow(() ->
+                new IllegalStateException("Category with Id: " + categoryId + " does not exist.")
+        );
+    }
+
+    public Category getCategoryByName(String name) {
+        Optional<Category> categoryOptional = categoryRepository.findCategoryByName(name);
 
         if (categoryOptional.isPresent()) {
-            categoryRepository.findById(categoryId);
+            return categoryOptional.get();
         }
-        throw new IllegalStateException("Category with Id: " + categoryId + " does not exist.");
+
+        throw new IllegalStateException("Category With Such Name: " + name + " Does Not Exist.");
     }
 
     // Add A New Category

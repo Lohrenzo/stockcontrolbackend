@@ -32,7 +32,10 @@ public class Product {
     private String description;
 
     @Column(nullable = false)
-    private Integer price;
+    private double price;
+
+    @Column(nullable = false)
+    private Long availableQuantity;
 
     // Foreign key
     //category_productId
@@ -43,6 +46,9 @@ public class Product {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "fk_categoryId", nullable = false)
     private Category category;
+
+    public Product(String sku, Category category, String description, double price, String name, Long quantity) {
+    }
 
 
     public Long getProductId() {
@@ -77,12 +83,20 @@ public class Product {
         this.description = description;
     }
 
-    public Integer getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Long getAvailableQuantity() {
+        return availableQuantity;
+    }
+
+    public void setAvailableQuantity(Long availableQuantity) {
+        this.availableQuantity = availableQuantity;
     }
 
     public Category getCategory() {

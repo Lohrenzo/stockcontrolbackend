@@ -1,5 +1,6 @@
 package com.oop.stockcontrol.service.jwt;
 
+//import com.oop.stockcontrol.entity.User;
 import com.oop.stockcontrol.entity.User;
 import com.oop.stockcontrol.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -25,5 +25,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findProductsByCategoryId(Long categoryId);
 
     @Query("SELECT p FROM Product p WHERE LOWER(p.description) LIKE LOWER(CONCAT('%', ?1, '%'))")
-    List<Product> findProductsByDecsriptionSearch(String descriptionKeyword);
+    List<Product> findProductsByDescriptionSearch(String descriptionKeyword);
 }

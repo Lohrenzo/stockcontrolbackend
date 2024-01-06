@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     // SELECT * FROM category where categoryId = ?
     @Query("SELECT s FROM Category s WHERE s.categoryId = ?1")
-    Optional<Category> findCategoryById(Long categoryId);
+    Optional<Category> getCategoryById(Long categoryId);
 
     @Query("SELECT s FROM Category s WHERE s.categoryName = ?1")
     Optional<Category> findCategoryByName(String categoryName);
